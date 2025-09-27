@@ -32,7 +32,7 @@ function masukAdmin() {
 async function vote(kandidat) {
   const nim = localStorage.getItem("nimSementara");
   if (!nim) {
-    alert("NIM tidak ditemukan.");
+    alert("Anda hanya diperkenankan memilih satu kali.");
     return;
   }
 
