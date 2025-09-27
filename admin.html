@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Voting</title>
-<style>
-  body { font-family: Arial, sans-serif; padding:50px; text-align:center; background:#f5f5f5; }
-  .results { background:#fff; padding:20px; border-radius:12px; width:300px; margin:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <h1>Hasil Voting</h1>
-  <div class="results" id="results"></div>
+<body onload="tampilkanHasil()">
+  <header>
+    <div class="logo-group">
+      <img src="logo1.png" alt="Logo 1" />
+      <img src="logo2.png" alt="Logo 2" />
+      <img src="logo3.png" alt="Logo 3" />
+    </div>
+    <div class="title-group">
+      <h1>E-Voting HMPS TRE</h1>
+      <p>Himpunan Mahasiswa Program Studi Teknologi Rekayasa Elektromedis D4</p>
+      <p>Universitas Muhammadiyah Purwokerto</p>
+    </div>
+  </header>
 
-  <script>
-    let results = JSON.parse(localStorage.getItem("results")) || { calon1:0, calon2:0 };
-    document.getElementById("results").innerHTML = `
-      <p>Calon 1: ${results.calon1} suara</p>
-      <p>Calon 2: ${results.calon2} suara</p>
-    `;
-  </script>
+  <main class="center">
+    <h2>Hasil Sementara</h2>
+    <p>Kandidat 1 (Amir Baiquni Arza): <span id="suara1">0</span> suara</p>
+    <p>Kandidat 2 (Purwo Setiawan): <span id="suara2">0</span> suara</p>
+    <button onclick="reset()">Reset Semua Data</button>
+  </main>
+
+  <footer>
+    <p>Tanggal Pemilihan: 27/09/2025</p>
+    <p>© HMPS TRE</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
