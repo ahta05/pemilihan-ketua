@@ -13,7 +13,7 @@ body {
 
 /* Header */
 header {
-  background-color: #004080;
+  background-color: #2E7D32; /* hijau tua */
   color: white;
   padding: 20px;
   text-align: center;
@@ -104,15 +104,16 @@ button {
   padding: 10px 20px;
   margin: 10px;
   font-size: 16px;
-  background-color: #004080;
+  background-color: #2E7D32; /* hijau tua */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #003060;
+  background-color: #1B5E20; /* hijau lebih gelap */
 }
 
 /* Footer */
