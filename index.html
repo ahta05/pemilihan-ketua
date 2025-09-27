@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pemilihan Ketua</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div class="logo-group">
-      <img src="logo1.png" alt="Logo 1" />
-      <img src="logo2.png" alt="Logo 2" />
-      <img src="logo3.png" alt="Logo 3" />
+      <img src="logo1.png" alt="Logo 1">
+      <img src="logo2.png" alt="Logo 2">
+      <img src="logo3.png" alt="Logo 3">
     </div>
     <div class="title-group">
       <h1>Pemilihan Ketua</h1>
@@ -21,15 +21,15 @@
   </header>
 
   <main class="center">
-    <button onclick="masukPeserta()">Masuk Sebagai Peserta</button>
-    <button onclick="masukAdmin()">Masuk Sebagai Admin</button>
+    <button id="btnPeserta">Masuk Sebagai Peserta</button>
+    <button id="btnAdmin">Masuk Sebagai Admin</button>
   </main>
 
   <footer>
     <p>Tanggal Pemilihan: 27/09/2025</p>
     <p>© HMPS TRE</p>
   </footer>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const supabase = supabase.createClient(
@@ -37,8 +37,6 @@
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkYmltaGx5empwZHJpaHhza29wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NzA3NzMsImV4cCI6MjA3NDU0Njc3M30.UHkWyX4_H5ClKdUKuP9yb2VdWKf7J2X35pkTxTuHiPc"
     );
   </script>
-  <script src="script.js"></script>
-
   <script src="script.js"></script>
 </body>
 </html>
