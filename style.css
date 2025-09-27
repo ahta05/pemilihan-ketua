@@ -19,19 +19,15 @@ header {
   padding: 15px;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 20px;
 }
 
 .logo-group {
   display: flex;
   gap: 10px;
-  align-items: center;
 }
 
 .logo-group img {
   height: 50px;
-  max-height: 50px;   /* mencegah logo membesar di layar lebar */
-  flex-shrink: 0;     /* logo nggak ikut menyusut atau melebar */
 }
 
 .title-group {
@@ -75,12 +71,11 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #388E3C;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Card Kandidat */
@@ -99,13 +94,6 @@ button:hover {
   padding: 20px;
   width: 300px;
   text-align: center;
-  flex: 1 1 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 .circle-img {
