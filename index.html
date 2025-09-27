@@ -1,211 +1,35 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemilihan Ketua</title>
-    <style>
-        /* =====================
-           Global Styles
-        ===================== */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        .candidate-misi {
-            text-align: left;
-            margin: 5px 0;
-        }
-
-        /* =====================
-           Header
-        ===================== */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 30px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .logo-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .logo-container img {
-            width: 40px;
-            height: 40px;
-        }
-
-        .title-container {
-            text-align: left;
-        }
-
-        .title-container h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .title-container p {
-            margin: 2px 0 0 0;
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* =====================
-           Kandidat
-        ===================== */
-        .candidates {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            padding: 50px 20px;
-            flex-wrap: wrap; /* fleksibel turun ke bawah jika layar sempit */
-        }
-
-        .candidate {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 250px;
-            max-width: 90%;
-        }
-
-        .candidate img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: transform 0.2s;
-        }
-
-        .candidate img:hover {
-            transform: scale(1.05);
-        }
-
-        .candidate h2 {
-            margin: 15px 0 10px 0;
-            font-size: 18px;
-        }
-
-        .vote-button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .vote-button:hover {
-            background-color: #45a049;
-        }
-
-        /* =====================
-           Footer
-        ===================== */
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #ffffff;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* =====================
-           Responsive
-        ===================== */
-        @media (max-width: 600px) {
-            /* Header: logo di atas, judul di bawah */
-            header {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                padding: 20px 10px;
-            }
-
-            .logo-container img {
-                width: 30px;
-                height: 30px;
-            }
-
-            /* Kandidat: turun ke bawah, lebar fleksibel */
-            .candidates {
-                gap: 20px;
-                padding: 30px 10px;
-            }
-
-            .candidate {
-                width: 90%;
-                max-width: 250px;
-            }
-        }
-
-        /* Optional untuk tablet */
-        @media (min-width: 601px) and (max-width: 900px) {
-            .candidates {
-                gap: 30px;
-                padding: 40px 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Voting HMPS TRE</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <div class="logo-group">
+      <img src="logo1.png" alt="Logo 1" />
+      <img src="logo2.png" alt="Logo 2" />
+      <img src="logo3.png" alt="Logo 3" />
+    </div>
+    <div class="title-group">
+      <h1>E-Voting HMPS TRE</h1>
+      <p>Himpunan Mahasiswa Program Studi Teknologi Rekayasa Elektromedis D4</p>
+      <p>Universitas Muhammadiyah Purwokerto</p>
+    </div>
+  </header>
 
-    <header>
-        <div class="logo-container">
-            <img src="logo1.png" alt="Logo 1">
-            <img src="logo2.png" alt="Logo 2">
-            <img src="logo3.png" alt="Logo 3">
-        </div>
-        <div class="title-container">
-            <h1>Pemilihan Ketua</h1>
-            <p>Himpunan Mahasiswa Program Studi Teknologi Rekayasa Elektromedis D4</p>
-            <p>Universitas Muhammadiyah Purwokerto</p>
-        </div>
-    </header>
+  <main class="center">
+    <button onclick="masukPeserta()">Masuk Sebagai Peserta</button>
+    <button onclick="masukAdmin()">Masuk Sebagai Admin</button>
+  </main>
 
-    <main class="candidates">
-        <div class="candidate">
-            <img src="kandidat1.png" alt="Kandidat 1">
-            <h2>Amir Baiquni Arza</h2>
-            <p><strong>Visi:</strong> Menjadi pemimpin yang inovatif dan inklusif.</p>
-            <p class="candidate-misi"><strong>Misi:</strong></p>
-            <ul class="candidate-misi">
-                <li>Meningkatkan kualitas kegiatan mahasiswa.</li>
-                <li>Mendorong partisipasi aktif seluruh anggota.</li>
-                <li>Mengembangkan program kerja yang berdampak nyata.</li>
-            </ul>
-            <button class="vote-button" onclick="vote('calon1')">Vote</button>
-        </div>
-        <div class="candidate">
-            <img src="kandidat2.png" alt="Kandidat 2">
-            <h2>Purwo Setiawan</h2>
-            <p><strong>Visi:</strong> Mewujudkan organisasi yang transparan dan berkelanjutan.</p>
-            <p class="candidate-misi"><strong>Misi:</strong></p>
-            <ul class="candidate-misi">
-                <li>Meningkatkan transparansi proker dan laporan kegiatan.</li>
-                <li>Memberikan ruang bagi kreativitas mahasiswa.</li>
-                <li>Mendorong kolaborasi lintas divisi dan himpunan.</li>
-            </ul>
-            <button class="vote-button" onclick="vote('calon2')">Vote</button>
-        </div>
-    </main>
-    <div id="results"></div>
+  <footer>
+    <p>Tanggal Pemilihan: 27/09/2025</p>
+    <p>© HMPS TRE</p>
+  </footer>
 
-    <footer>
-        Tanggal Pemilihan: 27/09/2025 | © HMPS TRE
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
