@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Pemilihan Ketua</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    // Proteksi akses hanya untuk admin
+    if (localStorage.getItem("aksesAdmin") !== "true") {
+      alert("Akses ditolak. Halaman ini hanya untuk admin.");
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo-group">
+      <img src="logo1.png" alt="Logo 1" />
+      <img src="logo2.png" alt="Logo 2" />
+      <img src="logo3.png" alt="Logo 3" />
+    </div>
+    <div class="title-group">
+      <h1>Pemilihan Ketua</h1>
+      <p>Himpunan Mahasiswa Program Studi Teknologi Rekayasa Elektromedis D4</p>
+      <p>Universitas Muhammadiyah Purwokerto</p>
+    </div>
+  </header>
+
+  <main class="center">
+    <h2 id="ucapan-selamat">Memuat hasil pemilihan...</h2>
+
+    <div class="card" id="kandidat-terpilih">
+      <img src="" alt="Foto Kandidat" class="circle-img" id="foto-kandidat" />
+      <h2 id="nama-kandidat"></h2>
+      <p><strong>Visi:</strong> <span id="visi-kandidat"></span></p>
+      <ul id="misi-kandidat"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p id="tanggal-pemilihan"></p>
+    <p>© HMPS TRE</p>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyADnRP1IZw4hvt0k-BpRtcD-xyZNu5tUo4",
+      authDomain: "e-votinghmpstre.firebaseapp.com",
+      projectId: "e-votinghmpstre",
+      storageBucket: "e-votinghmpstre.firebasestorage.app",
+      messagingSenderId: "659897867725",
+      appId: "1:659897867725:web:f538ef0e4bd9489967f884"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
