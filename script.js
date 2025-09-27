@@ -1,5 +1,4 @@
-
-// Fungsi untuk login peserta
+// --- Login index.html ---
 function masukPeserta() {
   const nim = prompt("Masukkan NIM Anda (10 digit, diawali 22/23/24/25):");
   if (!nim) return;
@@ -13,7 +12,6 @@ function masukPeserta() {
   window.location.href = "voting.html";
 }
 
-// Fungsi login admin
 function masukAdmin() {
   const key = prompt("Masukkan Admin Key:");
   if (key === "adminTRE2025") {
@@ -23,7 +21,7 @@ function masukAdmin() {
   }
 }
 
-// Fungsi vote
+// --- Voting ---
 async function vote(kandidat) {
   const nim = localStorage.getItem("nimSementara");
   if (!nim) {
@@ -32,7 +30,6 @@ async function vote(kandidat) {
   }
 
   try {
-    // cek NIM sudah vote belum
     const { data: existing, error: selError } = await supabase
       .from("votes")
       .select("*")
@@ -45,7 +42,6 @@ async function vote(kandidat) {
       return;
     }
 
-    // insert vote
     const { error: insertError } = await supabase
       .from("votes")
       .insert([{ nim: nim, kandidat: kandidat }]);
@@ -62,7 +58,7 @@ async function vote(kandidat) {
   }
 }
 
-// Fungsi tampilkan hasil admin
+// --- Tampilkan hasil admin ---
 async function tampilkanHasil() {
   try {
     const { data: votes, error } = await supabase.from("votes").select("*");
@@ -82,7 +78,7 @@ async function tampilkanHasil() {
   }
 }
 
-// Reset semua data voting (admin only)
+// --- Reset data admin ---
 async function reset() {
   if (!confirm("Yakin ingin mereset semua data?")) return;
 
@@ -98,17 +94,27 @@ async function reset() {
   }
 }
 
-// --- LIVE UPDATE untuk admin ---
-if (window.location.href.includes("admin.html")) {
-  tampilkanHasil();          // tampilkan awal
-  setInterval(tampilkanHasil, 3000); // update tiap 3 detik
-}
-
-// --- Tambahkan listener tombol voting di voting.html ---
+// --- Setup listeners setelah DOM siap ---
 window.addEventListener("DOMContentLoaded", () => {
-  const btn1 = document.getElementById("vote1");
-  const btn2 = document.getElementById("vote2");
+  // Index.html
+  const btnPeserta = document.getElementById("btnPeserta");
+  const btnAdmin = document.getElementById("btnAdmin");
+  if (btnPeserta) btnPeserta.addEventListener("click", masukPeserta);
+  if (btnAdmin) btnAdmin.addEventListener("click", masukAdmin);
 
-  if (btn1) btn1.addEventListener("click", () => vote(1));
-  if (btn2) btn2.addEventListener("click", () => vote(2));
+  // Voting.html
+  const vote1 = document.getElementById("vote1");
+  const vote2 = document.getElementById("vote2");
+  if (vote1) vote1.addEventListener("click", () => vote(1));
+  if (vote2) vote2.addEventListener("click", () => vote(2));
+
+  // Admin.html
+  const resetBtn = document.getElementById("resetBtn");
+  if (resetBtn) resetBtn.addEventListener("click", reset);
+
+  // Auto update hasil di admin.html
+  if (window.location.href.includes("admin.html")) {
+    tampilkanHasil();
+    setInterval(tampilkanHasil, 3000);
+  }
 });
