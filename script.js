@@ -22,6 +22,7 @@ function masukPeserta() {
 function masukAdmin() {
   const key = prompt("Masukkan Admin Key:");
   if (key === "adminTRE2025") {
+    localStorage.setItem("aksesAdmin", "true");
     window.location.href = "admin.html";
   } else {
     alert("Admin Key salah.");
@@ -82,7 +83,7 @@ async function tampilkanHasil() {
   }
 }
 
-// Reset semua data voting (admin only)
+// Fungsi reset voting
 async function reset() {
   if (!confirm("Yakin ingin mereset semua data?")) return;
 
@@ -104,6 +105,12 @@ async function reset() {
   }
 }
 
+// Fungsi buka halaman hasil akhir
+function bukaHasil() {
+  localStorage.setItem("aksesAdmin", "true");
+  window.location.href = "hasil.html";
+}
+
 // Fungsi tampilkan tanggal hari ini
 function tampilkanTanggalHariIni() {
   const el = document.getElementById("tanggal-pemilihan");
@@ -116,21 +123,86 @@ function tampilkanTanggalHariIni() {
   el.textContent = `Tanggal : ${tanggal}`;
 }
 
+// Fungsi tampilkan kandidat terpilih (khusus hasil.html)
+async function tampilkanKandidatTerpilih() {
+  try {
+    const snapshot = await db.collection("votes").get();
+    const votes = snapshot.docs.map(doc => doc.data());
+
+    const jumlah1 = votes.filter(v => v.kandidat === 1).length;
+    const jumlah2 = votes.filter(v => v.kandidat === 2).length;
+
+    let kandidat;
+    if (jumlah1 > jumlah2) kandidat = 1;
+    else if (jumlah2 > jumlah1) kandidat = 2;
+    else kandidat = null;
+
+    const dataKandidat = {
+      1: {
+        nama: "Amir Baiquni Arza",
+        foto: "kandidat1.png",
+        visi: "Menjadi pemimpin yang inovatif dan inklusif",
+        misi: [
+          "Meningkatkan kualitas kegiatan mahasiswa",
+          "Mendorong partisipasi aktif seluruh anggota",
+          "Mengembangkan program kerja yang berdampak nyata"
+        ]
+      },
+      2: {
+        nama: "Purwo Setiawan",
+        foto: "kandidat2.png",
+        visi: "Mewujudkan organisasi yang transparan dan berkelanjutan",
+        misi: [
+          "Meningkatkan transparansi proker dan laporan kegiatan",
+          "Memberikan ruang bagi kreativitas mahasiswa",
+          "Mendorong kolaborasi lintas divisi dan himpunan"
+        ]
+      }
+    };
+
+    if (kandidat === null) {
+      document.getElementById("ucapan-selamat").textContent = "Hasil seri. Belum ada pemenang.";
+      document.getElementById("kandidat-terpilih").style.display = "none";
+      return;
+    }
+
+    const terpilih = dataKandidat[kandidat];
+
+    document.getElementById("ucapan-selamat").textContent = `Selamat kepada ${terpilih.nama} sebagai Ketua Terpilih!`;
+    document.getElementById("foto-kandidat").src = terpilih.foto;
+    document.getElementById("nama-kandidat").textContent = terpilih.nama;
+    document.getElementById("visi-kandidat").textContent = terpilih.visi;
+
+    const ul = document.getElementById("misi-kandidat");
+    ul.innerHTML = "";
+    terpilih.misi.forEach(m => {
+      const li = document.createElement("li");
+      li.textContent = m;
+      ul.appendChild(li);
+    });
+
+  } catch (err) {
+    console.error(err);
+    alert("Gagal menampilkan hasil.");
+  }
+}
+
 // --- Event listener universal untuk semua halaman ---
 window.addEventListener("DOMContentLoaded", () => {
-  // Tampilkan tanggal di semua halaman
   tampilkanTanggalHariIni();
 
-  // Voting listener (khusus voting.html)
   const btn1 = document.getElementById("vote1");
   const btn2 = document.getElementById("vote2");
 
   if (btn1) btn1.addEventListener("click", () => vote(1));
   if (btn2) btn2.addEventListener("click", () => vote(2));
 
-  // Live update suara (khusus admin.html)
   if (window.location.href.includes("admin.html")) {
     tampilkanHasil();
     setInterval(tampilkanHasil, 3000);
+  }
+
+  if (window.location.href.includes("hasil.html")) {
+    tampilkanKandidatTerpilih();
   }
 });
