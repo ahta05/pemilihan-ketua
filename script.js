@@ -1,41 +1,30 @@
-// Simpan hasil voting di localStorage (sementara, ga pake database dulu)
-let hasVoted = localStorage.getItem("hasVoted") || false;
+// Cek autentikasi NIM
+let currentNIM = localStorage.getItem("currentNIM");
+if (!currentNIM) {
+  alert("Silakan login dengan NIM terlebih dahulu!");
+  window.location.href = "auth.html";
+}
 
+// Fungsi vote
 function vote(candidate) {
-  if (hasVoted) {
-    alert("Anda hanya diperkenankan memilih satu kali!");
+  let votedNIMs = JSON.parse(localStorage.getItem('votedNIMs')) || [];
+
+  if (votedNIMs.includes(currentNIM)) {
+    alert("Anda sudah memilih, tidak bisa memilih lagi!");
     return;
   }
 
   // Ambil data hasil voting
-  let results = JSON.parse(localStorage.getItem("results")) || {
-    calon1: 0,
-    calon2: 0
-  };
-
-  // Tambah suara
+  let results = JSON.parse(localStorage.getItem("results")) || { calon1:0, calon2:0 };
   results[candidate]++;
-  
-  // Simpan kembali ke localStorage
   localStorage.setItem("results", JSON.stringify(results));
-  localStorage.setItem("hasVoted", true);
+
+  // Tandai NIM sudah vote
+  votedNIMs.push(currentNIM);
+  localStorage.setItem('votedNIMs', JSON.stringify(votedNIMs));
 
   alert("Terima kasih, suara anda sudah direkam!");
-  showResults();
+
+  // Disable semua tombol
+  document.querySelectorAll(".vote-button").forEach(btn => btn.disabled = true);
 }
-
-function showResults() {
-  let results = JSON.parse(localStorage.getItem("results")) || {
-    calon1: 0,
-    calon2: 0
-  };
-
-  document.getElementById("results").innerHTML = `
-    <h2>Hasil Sementara:</h2>
-    <p>Calon 1: ${results.calon1} suara</p>
-    <p>Calon 2: ${results.calon2} suara</p>
-  `;
-}
-
-// Tampilkan hasil pas pertama kali halaman dibuka
-showResults();
