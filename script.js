@@ -63,20 +63,14 @@ async function vote(kandidat) {
   }
 }
 
-// Fungsi tampilkan hasil admin
+// Fungsi tampilkan jumlah suara (admin)
 async function tampilkanHasil() {
   try {
     const snapshot = await db.collection("votes").get();
-    const votes = snapshot.docs.map(doc => doc.data());
+    const total = snapshot.size;
 
-    const suara1 = votes.filter(v => v.kandidat === 1).length;
-    const suara2 = votes.filter(v => v.kandidat === 2).length;
-
-    const el1 = document.getElementById("suara1");
-    const el2 = document.getElementById("suara2");
-
-    if (el1) el1.textContent = suara1;
-    if (el2) el2.textContent = suara2;
+    const elTotal = document.getElementById("total-suara");
+    if (elTotal) elTotal.textContent = total;
 
   } catch (err) {
     console.error(err);
@@ -123,7 +117,7 @@ function tampilkanTanggalHariIni() {
   el.textContent = `Tanggal : ${tanggal}`;
 }
 
-// Fungsi tampilkan kandidat terpilih (khusus hasil.html)
+// Fungsi tampilkan kandidat terpilih (hasil.html)
 async function tampilkanKandidatTerpilih() {
   try {
     const snapshot = await db.collection("votes").get();
