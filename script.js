@@ -111,6 +111,16 @@ if (window.location.href.includes("admin.html")) {
   tampilkanHasil();          
   setInterval(tampilkanHasil, 3000); 
 }
+function tampilkanTanggalHariIni() {
+  const el = document.getElementById("tanggal-pemilihan");
+  if (!el) return;
+
+  const now = new Date();
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const tanggal = now.toLocaleDateString('id-ID', options);
+
+  el.textContent = `Tanggal Hari Ini: ${tanggal}`;
+}
 
 // --- Tambahkan listener tombol voting di voting.html ---
 window.addEventListener("DOMContentLoaded", () => {
