@@ -1,112 +1,100 @@
-// Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  deleteDoc,
-  collection,
-  getDocs,
-  writeBatch
-} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+// Supabase sudah di-include di HTML sebelumnya
+// const supabase = supabase.createClient(...);
 
-// Konfigurasi Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyA0H-gl3PIQ8J0kU1o_XUrXz-QKanSYX-w",
-  authDomain: "evoting-hmpstre.firebaseapp.com",
-  projectId: "evoting-hmpstre",
-  storageBucket: "evoting-hmpstre.appspot.com",
-  messagingSenderId: "448620443069",
-  appId: "1:448620443069:web:0a364096ac7f6a2de4ced4",
-  measurementId: "G-3PPK662F6X"
-};
+// Fungsi untuk login peserta
+function masukPeserta() {
+  const nim = prompt("Masukkan NIM Anda (10 digit, diawali 22/23/24/25):");
+  if (!nim) return;
 
-// Inisialisasi Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Validasi NIM: harus 10 digit dan diawali 22–25
-function validasiNIM(nim) {
-  return /^(22|23|24|25)\d{8}$/.test(nim);
-}
-
-// Fungsi login sebagai peserta
-window.masukPeserta = async function () {
-  const nim = prompt("Masukkan NIM Anda:");
-  if (!nim || !validasiNIM(nim)) {
-    alert("NIM tidak valid.");
+  if (!/^2[2-5]\d{8}$/.test(nim)) {
+    alert("Format NIM salah!");
     return;
   }
 
-  const nimRef = doc(db, "votes", nim);
-  const docSnap = await getDoc(nimRef);
-  if (docSnap.exists()) {
-    alert("NIM ini sudah digunakan untuk voting.");
-  } else {
-    localStorage.setItem("nimSementara", nim);
-    window.location.href = "voting.html";
-  }
-};
+  localStorage.setItem("nimSementara", nim);
+  window.location.href = "voting.html";
+}
 
-// Fungsi login sebagai admin
-window.masukAdmin = function () {
+// Fungsi login admin
+function masukAdmin() {
   const key = prompt("Masukkan Admin Key:");
   if (key === "adminTRE2025") {
     window.location.href = "admin.html";
   } else {
     alert("Admin Key salah.");
   }
-};
+}
 
 // Fungsi vote
-window.vote = async function (kandidat) {
+async function vote(kandidat) {
   const nim = localStorage.getItem("nimSementara");
   if (!nim) {
     alert("NIM tidak ditemukan.");
     return;
   }
 
-  const nimRef = doc(db, "votes", nim);
-  const docSnap = await getDoc(nimRef);
-  if (docSnap.exists()) {
-    alert("NIM sudah digunakan.");
+  const { data: existing, error } = await supabase
+    .from("votes")
+    .select("*")
+    .eq("nim", nim);
+
+  if (error) {
+    console.error(error);
+    alert("Terjadi kesalahan, coba lagi.");
     return;
   }
 
-  await setDoc(nimRef, { kandidat });
+  if (existing.length > 0) {
+    alert("NIM ini sudah digunakan untuk voting.");
+    return;
+  }
+
+  const { error: insertError } = await supabase
+    .from("votes")
+    .insert([{ nim: nim, kandidat: kandidat }]);
+
+  if (insertError) {
+    console.error(insertError);
+    alert("Terjadi kesalahan saat submit vote.");
+    return;
+  }
+
   localStorage.removeItem("nimSementara");
   alert("Terima kasih telah melakukan voting.");
   window.location.href = "index.html";
-};
+}
 
-// Fungsi tampilkan hasil di admin.html
-window.tampilkanHasil = async function () {
-  const snapshot = await getDocs(collection(db, "votes"));
-  let suara1 = 0, suara2 = 0;
+// Fungsi tampilkan hasil admin
+async function tampilkanHasil() {
+  const { data: votes, error } = await supabase.from("votes").select("*");
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-  snapshot.forEach(doc => {
-    const { kandidat } = doc.data();
-    if (kandidat === 1) suara1++;
-    if (kandidat === 2) suara2++;
-  });
+  const suara1 = votes.filter(v => v.kandidat === 1).length;
+  const suara2 = votes.filter(v => v.kandidat === 2).length;
 
   document.getElementById("suara1").textContent = suara1;
   document.getElementById("suara2").textContent = suara2;
-};
+}
 
-// Fungsi reset semua data voting
-window.reset = async function () {
-  if (!confirm("Yakin ingin mereset semua data?")) return;
+// Reset semua data voting (admin only)
+async function reset() {
+  if (confirm("Yakin ingin mereset semua data?")) {
+    const { error } = await supabase.from("votes").delete().neq("id", 0);
+    if (error) {
+      console.error(error);
+      alert("Gagal mereset data.");
+      return;
+    }
+    alert("Data berhasil direset.");
+    tampilkanHasil();
+  }
+}
 
-  const snapshot = await getDocs(collection(db, "votes"));
-  const batch = writeBatch(db);
-
-  snapshot.forEach(doc => {
-    batch.delete(doc.ref);
-  });
-
-  await batch.commit();
-  alert("Data berhasil direset.");
-  window.tampilkanHasil();
-};
+// --- LIVE UPDATE untuk admin ---
+if (window.location.href.includes("admin.html")) {
+  // Update tiap 3 detik
+  setInterval(tampilkanHasil, 3000);
+}
