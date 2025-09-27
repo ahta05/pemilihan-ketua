@@ -26,6 +26,34 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        /* Membuat kandidat responsive untuk layar sempit */
+        .candidates {
+            display: flex;
+            flex-wrap: wrap; /* biar turun ke bawah jika layar sempit */
+            justify-content: center;
+            gap: 30px;
+            padding: 50px 20px;
+        }
+        
+        .candidate {
+            width: 90%;       /* fleksibel di HP */
+            max-width: 250px; /* tetap maksimal di desktop */
+        }
+        
+        /* Media query untuk layar tablet & desktop */
+        @media (min-width: 600px) {
+            .candidate {
+                width: 250px;
+            }
+        }
+        
+        /* Media query untuk layar HP kecil */
+        @media (max-width: 600px) {
+            .candidates {
+                gap: 20px;
+                padding: 30px 10px;
+            }
+        }
 
         .logo-container {
             display: flex;
