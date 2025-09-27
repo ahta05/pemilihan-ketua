@@ -1,5 +1,10 @@
-// --- Supabase sudah di-include di HTML sebelumnya ---
-// const supabase = supabase.createClient(URL_SUPABASE, PUBLIC_ANON_KEY);
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabase = supabase.createClient(
+    "https://sdbimhlyzjpdrihxskop.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkYmltaGx5empwZHJpaHhza29wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NzA3NzMsImV4cCI6MjA3NDU0Njc3M30.UHkWyX4_H5ClKdUKuP9yb2VdWKf7J2X35pkTxTuHiPc"
+  );
+</script>
 
 // Fungsi untuk login peserta
 function masukPeserta() {
