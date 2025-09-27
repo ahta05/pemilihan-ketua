@@ -2,21 +2,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
-// Konfigurasi Firebase
+// Konfigurasi Firebase (ISI DENGAN DATA ASLI)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA0H-gl3PIQ8J0kU1o_XUrXz-QKanSYX-w",
+  authDomain: "evoting-hmpstre.firebaseapp.com",
+  projectId: "evoting-hmpstre",
+  storageBucket: "evoting-hmpstre.appspot.com",
+  messagingSenderId: "448620443069",
+  appId: "1:448620443069:web:0a364096ac7f6a2de4ced4",
+  measurementId: "G-3PPK662F6X"
 };
 
 // Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Validasi NIM: harus 10 digit dan diawali 22
+// Validasi NIM: harus 10 digit dan diawali 22–25
 function validasiNIM(nim) {
   return /^(22|23|24|25)\d{8}$/.test(nim);
 }
@@ -100,3 +101,10 @@ async function reset() {
   alert("Data berhasil direset.");
   tampilkanHasil();
 }
+
+// Ekspose fungsi ke global agar bisa dipanggil dari HTML
+window.masukPeserta = masukPeserta;
+window.masukAdmin = masukAdmin;
+window.vote = vote;
+window.tampilkanHasil = tampilkanHasil;
+window.reset = reset;
