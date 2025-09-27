@@ -1,9 +1,37 @@
-// Fungsi untuk login sebagai peserta
-function masukPeserta() {
+// Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+// Konfigurasi Firebase
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Inisialisasi Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Validasi NIM: harus 10 digit dan diawali 22
+function validasiNIM(nim) {
+  return /^(22|23|24|25)\d{8}$/.test(nim);
+}
+
+// Fungsi login sebagai peserta
+async function masukPeserta() {
   const nim = prompt("Masukkan NIM Anda:");
-  if (!nim) return;
-  const sudahVote = JSON.parse(localStorage.getItem("nimVoted")) || [];
-  if (sudahVote.includes(nim)) {
+  if (!nim || !validasiNIM(nim)) {
+    alert("NIM tidak valid.");
+    return;
+  }
+
+  const nimRef = doc(db, "votes", nim);
+  const docSnap = await getDoc(nimRef);
+  if (docSnap.exists()) {
     alert("NIM ini sudah digunakan untuk voting.");
   } else {
     localStorage.setItem("nimSementara", nim);
@@ -11,7 +39,7 @@ function masukPeserta() {
   }
 }
 
-// Fungsi untuk login sebagai admin
+// Fungsi login sebagai admin
 function masukAdmin() {
   const key = prompt("Masukkan Admin Key:");
   if (key === "adminTRE2025") {
@@ -21,45 +49,54 @@ function masukAdmin() {
   }
 }
 
-// Fungsi untuk melakukan vote
-function vote(kandidat) {
+// Fungsi vote
+async function vote(kandidat) {
   const nim = localStorage.getItem("nimSementara");
   if (!nim) {
     alert("NIM tidak ditemukan.");
     return;
   }
 
-  const suara1 = parseInt(localStorage.getItem("suara1") || "0");
-  const suara2 = parseInt(localStorage.getItem("suara2") || "0");
-
-  if (kandidat === 1) {
-    localStorage.setItem("suara1", suara1 + 1);
-  } else if (kandidat === 2) {
-    localStorage.setItem("suara2", suara2 + 1);
+  const nimRef = doc(db, "votes", nim);
+  const docSnap = await getDoc(nimRef);
+  if (docSnap.exists()) {
+    alert("NIM sudah digunakan.");
+    return;
   }
 
-  const voted = JSON.parse(localStorage.getItem("nimVoted")) || [];
-  voted.push(nim);
-  localStorage.setItem("nimVoted", JSON.stringify(voted));
+  await setDoc(nimRef, { kandidat });
   localStorage.removeItem("nimSementara");
-
   alert("Terima kasih telah melakukan voting.");
   window.location.href = "index.html";
 }
 
-// Fungsi untuk menampilkan hasil voting di admin.html
-function tampilkanHasil() {
-  document.getElementById("suara1").textContent = localStorage.getItem("suara1") || "0";
-  document.getElementById("suara2").textContent = localStorage.getItem("suara2") || "0";
+// Fungsi tampilkan hasil di admin.html
+async function tampilkanHasil() {
+  const snapshot = await getDocs(collection(db, "votes"));
+  let suara1 = 0, suara2 = 0;
+
+  snapshot.forEach(doc => {
+    const { kandidat } = doc.data();
+    if (kandidat === 1) suara1++;
+    if (kandidat === 2) suara2++;
+  });
+
+  document.getElementById("suara1").textContent = suara1;
+  document.getElementById("suara2").textContent = suara2;
 }
 
-// Fungsi untuk mereset semua data voting
-function reset() {
-  if (confirm("Yakin ingin mereset semua data?")) {
-    localStorage.removeItem("suara1");
-    localStorage.removeItem("suara2");
-    localStorage.removeItem("nimVoted");
-    alert("Data berhasil direset.");
-    tampilkanHasil();
-  }
+// Fungsi reset semua data voting
+async function reset() {
+  if (!confirm("Yakin ingin mereset semua data?")) return;
+
+  const snapshot = await getDocs(collection(db, "votes"));
+  const batch = writeBatch(db);
+
+  snapshot.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+
+  await batch.commit();
+  alert("Data berhasil direset.");
+  tampilkanHasil();
 }
