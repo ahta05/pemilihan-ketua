@@ -1,14 +1,143 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pemilihan Ketua</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemilihan Ketua</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .title-container {
+            text-align: left;
+        }
+
+        .title-container h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .title-container p {
+            margin: 2px 0 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Kandidat */
+        .candidates {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 50px 20px;
+        }
+
+        .candidate {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 200px;
+        }
+
+        .candidate img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .candidate img:hover {
+            transform: scale(1.05);
+        }
+
+        .candidate h2 {
+            margin: 15px 0 10px 0;
+            font-size: 18px;
+        }
+
+        .vote-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .vote-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-  <h1>Pemilihan Ketua</h1>
-  <div id="candidates"></div>
-  <script src="script.js"></script>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo1.png" alt="Logo 1">
+            <img src="logo2.png" alt="Logo 2">
+            <img src="logo3.png" alt="Logo 3">
+            <img src="logo4.png" alt="Logo 4">
+            <img src="logo5.png" alt="Logo 5">
+        </div>
+        <div class="title-container">
+            <h1>Pemilihan Ketua</h1>
+            <p>Himpunan Mahasiswa Program Studi</p>
+        </div>
+    </header>
+
+    <main class="candidates">
+        <div class="candidate">
+            <img src="kandidat1.jpg" alt="Kandidat 1">
+            <h2>Kandidat 1</h2>
+            <button class="vote-button">Vote</button>
+        </div>
+        <div class="candidate">
+            <img src="kandidat2.jpg" alt="Kandidat 2">
+            <h2>Kandidat 2</h2>
+            <button class="vote-button">Vote</button>
+        </div>
+    </main>
+
+    <footer>
+        Tanggal Pemilihan: 27/09/2025 | © HMPS TRE
+    </footer>
+
 </body>
 </html>
