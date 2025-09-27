@@ -19,6 +19,7 @@ header {
   padding: 15px;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
 .logo-group {
@@ -71,11 +72,12 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 button:hover {
   background-color: #388E3C;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Card Kandidat */
@@ -94,6 +96,13 @@ button:hover {
   padding: 20px;
   width: 300px;
   text-align: center;
+  flex: 1 1 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 .circle-img {
