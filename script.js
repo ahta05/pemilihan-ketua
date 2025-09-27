@@ -1,8 +1,17 @@
 // Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+  collection,
+  getDocs,
+  writeBatch
+} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
-// Konfigurasi Firebase (ISI DENGAN DATA ASLI)
+// Konfigurasi Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA0H-gl3PIQ8J0kU1o_XUrXz-QKanSYX-w",
   authDomain: "evoting-hmpstre.firebaseapp.com",
@@ -23,7 +32,7 @@ function validasiNIM(nim) {
 }
 
 // Fungsi login sebagai peserta
-async function masukPeserta() {
+window.masukPeserta = async function () {
   const nim = prompt("Masukkan NIM Anda:");
   if (!nim || !validasiNIM(nim)) {
     alert("NIM tidak valid.");
@@ -38,20 +47,20 @@ async function masukPeserta() {
     localStorage.setItem("nimSementara", nim);
     window.location.href = "voting.html";
   }
-}
+};
 
 // Fungsi login sebagai admin
-function masukAdmin() {
+window.masukAdmin = function () {
   const key = prompt("Masukkan Admin Key:");
   if (key === "adminTRE2025") {
     window.location.href = "admin.html";
   } else {
     alert("Admin Key salah.");
   }
-}
+};
 
 // Fungsi vote
-async function vote(kandidat) {
+window.vote = async function (kandidat) {
   const nim = localStorage.getItem("nimSementara");
   if (!nim) {
     alert("NIM tidak ditemukan.");
@@ -69,10 +78,10 @@ async function vote(kandidat) {
   localStorage.removeItem("nimSementara");
   alert("Terima kasih telah melakukan voting.");
   window.location.href = "index.html";
-}
+};
 
 // Fungsi tampilkan hasil di admin.html
-async function tampilkanHasil() {
+window.tampilkanHasil = async function () {
   const snapshot = await getDocs(collection(db, "votes"));
   let suara1 = 0, suara2 = 0;
 
@@ -84,10 +93,10 @@ async function tampilkanHasil() {
 
   document.getElementById("suara1").textContent = suara1;
   document.getElementById("suara2").textContent = suara2;
-}
+};
 
 // Fungsi reset semua data voting
-async function reset() {
+window.reset = async function () {
   if (!confirm("Yakin ingin mereset semua data?")) return;
 
   const snapshot = await getDocs(collection(db, "votes"));
@@ -99,12 +108,5 @@ async function reset() {
 
   await batch.commit();
   alert("Data berhasil direset.");
-  tampilkanHasil();
-}
-
-// Ekspose fungsi ke global agar bisa dipanggil dari HTML
-window.masukPeserta = masukPeserta;
-window.masukAdmin = masukAdmin;
-window.vote = vote;
-window.tampilkanHasil = tampilkanHasil;
-window.reset = reset;
+  window.tampilkanHasil();
+};
