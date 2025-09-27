@@ -3,7 +3,7 @@ let hasVoted = localStorage.getItem("hasVoted") || false;
 
 function vote(candidate) {
   if (hasVoted) {
-    alert("Kamu sudah memilih, tidak bisa memilih lagi!");
+    alert("Anda hanya diperkenankan memilih satu kali!");
     return;
   }
 
@@ -20,7 +20,7 @@ function vote(candidate) {
   localStorage.setItem("results", JSON.stringify(results));
   localStorage.setItem("hasVoted", true);
 
-  alert("Terima kasih, suara kamu sudah direkam!");
+  alert("Terima kasih, suara anda sudah direkam!");
   showResults();
 }
 
