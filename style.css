@@ -4,19 +4,22 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+  background-color: #f0fdf4; /* hijau pastel sangat lembut */
   color: #333;
+  transition: background-color 0.3s ease;
 }
 
 /* Header */
 header {
-  background-color: #2E7D32; /* hijau tua */
-  color: white;
+  background-color: #A5D6A7; /* mint green */
+  color: #1B5E20;
   padding: 20px;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-bottom: 2px solid #81C784;
 }
 
 .logo-group {
@@ -29,10 +32,17 @@ header {
 .logo-group img {
   width: 60px;
   height: auto;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-group img:hover {
+  transform: scale(1.1);
 }
 
 .title-group h1 {
   margin: 10px 0 5px;
+  font-size: 24px;
 }
 
 .title-group p {
@@ -58,20 +68,27 @@ main.card-container {
 
 /* Card */
 .card {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #C8E6C9;
+  border-radius: 12px;
   padding: 20px;
   width: 100%;
   max-width: 350px;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 
 .card h2 {
   margin-top: 10px;
   margin-bottom: 5px;
   font-size: 20px;
+  color: #2E7D32;
 }
 
 .card p {
@@ -96,7 +113,8 @@ main.card-container {
   height: auto;
   border-radius: 50%;
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* Tombol */
@@ -104,23 +122,25 @@ button {
   padding: 10px 20px;
   margin: 10px;
   font-size: 16px;
-  background-color: #2E7D32; /* hijau tua */
+  background-color: #81C784; /* hijau pastel */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #1B5E20; /* hijau lebih gelap */
+  background-color: #66BB6A; /* hijau hover */
+  transform: scale(1.03);
 }
 
 /* Footer */
 footer {
-  background-color: #eee;
+  background-color: #E8F5E9;
   padding: 15px;
   font-size: 14px;
   text-align: center;
   margin-top: 30px;
+  border-top: 1px solid #C8E6C9;
 }
