@@ -6,7 +6,7 @@
   <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body onload="tampilkanHasil()">
+<body>
   <header>
     <div class="logo-group">
       <img src="logo1.png" alt="Logo 1" />
@@ -25,6 +25,7 @@
     <p>Kandidat 1 (Amir Baiquni Arza): <span id="suara1">0</span> suara</p>
     <p>Kandidat 2 (Purwo Setiawan): <span id="suara2">0</span> suara</p>
     <button onclick="reset()">Reset Semua Data</button>
+    <button onclick="bukaHasil()">Lihat Hasil Akhir</button>
   </main>
 
   <footer>
@@ -46,7 +47,6 @@
     };
     firebase.initializeApp(firebaseConfig);
   </script>
-
   <script src="script.js"></script>
 </body>
 </html>
