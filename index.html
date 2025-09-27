@@ -5,27 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pemilihan Ketua</title>
   <link rel="stylesheet" href="style.css" />
-
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA0H-gl3PIQ8J0kU1o_XUrXz-QKanSYX-w",
-    authDomain: "evoting-hmpstre.firebaseapp.com",
-    projectId: "evoting-hmpstre",
-    storageBucket: "evoting-hmpstre.firebasestorage.app",
-    messagingSenderId: "448620443069",
-    appId: "1:448620443069:web:0a364096ac7f6a2de4ced4",
-    measurementId: "G-3PPK662F6X"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  window.db = db; // agar bisa diakses dari script.js
-</script>
 </head>
-  
 <body>
   <header>
     <div class="logo-group">
@@ -50,6 +30,6 @@
     <p>© HMPS TRE</p>
   </footer>
 
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
