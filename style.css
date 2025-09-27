@@ -25,10 +25,13 @@ header {
 .logo-group {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .logo-group img {
   height: 50px;
+  max-height: 50px;   /* mencegah logo membesar di layar lebar */
+  flex-shrink: 0;     /* logo nggak ikut menyusut atau melebar */
 }
 
 .title-group {
