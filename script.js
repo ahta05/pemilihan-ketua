@@ -113,7 +113,7 @@ function tampilkanTanggalHariIni() {
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const tanggal = now.toLocaleDateString('id-ID', options);
 
-  el.textContent = `Tanggal Hari Ini: ${tanggal}`;
+  el.textContent = `Tanggal : ${tanggal}`;
 }
 
 // --- Event listener universal untuk semua halaman ---
