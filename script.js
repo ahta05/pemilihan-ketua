@@ -37,7 +37,6 @@ async function vote(kandidat) {
   }
 
   try {
-    // cek NIM sudah vote belum
     const existing = await db.collection("votes")
       .where("nim", "==", nim)
       .get();
@@ -47,7 +46,6 @@ async function vote(kandidat) {
       return;
     }
 
-    // insert vote
     await db.collection("votes").add({
       nim: nim,
       kandidat: kandidat,
@@ -106,11 +104,7 @@ async function reset() {
   }
 }
 
-// --- LIVE UPDATE untuk admin ---
-if (window.location.href.includes("admin.html")) {
-  tampilkanHasil();          
-  setInterval(tampilkanHasil, 3000); 
-}
+// Fungsi tampilkan tanggal hari ini
 function tampilkanTanggalHariIni() {
   const el = document.getElementById("tanggal-pemilihan");
   if (!el) return;
@@ -122,11 +116,21 @@ function tampilkanTanggalHariIni() {
   el.textContent = `Tanggal Hari Ini: ${tanggal}`;
 }
 
-// --- Tambahkan listener tombol voting di voting.html ---
+// --- Event listener universal untuk semua halaman ---
 window.addEventListener("DOMContentLoaded", () => {
+  // Tampilkan tanggal di semua halaman
+  tampilkanTanggalHariIni();
+
+  // Voting listener (khusus voting.html)
   const btn1 = document.getElementById("vote1");
   const btn2 = document.getElementById("vote2");
 
   if (btn1) btn1.addEventListener("click", () => vote(1));
   if (btn2) btn2.addEventListener("click", () => vote(2));
+
+  // Live update suara (khusus admin.html)
+  if (window.location.href.includes("admin.html")) {
+    tampilkanHasil();
+    setInterval(tampilkanHasil, 3000);
+  }
 });
