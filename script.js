@@ -137,9 +137,9 @@ async function tampilkanKandidatTerpilih() {
         foto: "kandidat1.png",
         visi: "Mewujudkan HMPS TRE yang solid, aktif, dan bermanfaat bagi anggota maupun lingkungan sekitar.",
         misi: [
-          "Mengkoordinasi semua angkatan terutama 24 dan 25 untuk ikut serta dalam kegiatan HMPS TRE tiap periode.",
-          "Mengadakan himpunan HMPS TRE agar lebih aktif dan bermanfaat di luar kampus.",
-          "Mengoptimalkan potensi diri maupun anggota dalam program kerja."
+          "Mengkoordinasi semua angkatan terutama 24 dan 25 untuk ikut serta dalam kegiatan HMPS TRE atau Prodi TRE.",
+          "Membawa nama baik HMPS TRE agar lebih dikenal aktif dan berdampak positif di dalam maupun di luar kampus.",
+          "Mengoptimalkan program kerja agar lebih terarah dan bermanfaat."
         ]
       },
       2: {
@@ -149,15 +149,15 @@ async function tampilkanKandidatTerpilih() {
         misi: [
           {
             judul: "Organisasi & Kepemimpinan",
-            deskripsi: "Membentuk birokrasi organisasi yang solid, aktif, dan bertanggung jawab."
+            deskripsi: "Membentuk budaya organisasi yang solid, profesional, dan berintegritas tinggi."
           },
           {
             judul: "Inovasi & Kreativitas",
-            deskripsi: "Mengembangkan kegiatan yang mendukung kreativitas mahasiswa serta ide-ide inovatif di bidang elektromedis."
+            deskripsi: "Mengembangkan kegiatan yang mendukung kreativitas mahasiswa dalam menciptakan karya inovatif di bidang elektromedis."
           },
           {
-            judul: "Digitalisasi Organisasi",
-            deskripsi: "Meningkatkan sistem informasi organisasi berbasis digital."
+            judul: "Mengoptimalkan Digitalisasi Organisasi",
+            deskripsi: "Memanfaatkan teknologi digital untuk transparansi, publikasi, serta efisiensi kegiatan HMPS, sehingga lebih modern, efektif, dan dekat dengan mahasiswa."
           }
         ]
       }
