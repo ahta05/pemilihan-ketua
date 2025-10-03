@@ -145,11 +145,11 @@ async function tampilkanKandidatTerpilih() {
       2: {
         nama: "Purwo Setyawan",
         foto: "kandidat2.png",
-        visi: "Mewujudkan organisasi yang transparan dan berkelanjutan",
+        visi: "Mewujudkan HMPS Teknologi Rekayasa Elektromedis yang unggul dan inovatif.",
         misi: [
-          "Meningkatkan transparansi proker dan laporan kegiatan",
-          "Memberikan ruang bagi kreativitas mahasiswa",
-          "Mendorong kolaborasi lintas divisi dan himpunan"
+          "Organisasi & Kepemimpinan — Membentuk budaya organisasi yang solid, profesional, dan berintegritas tinggi.",
+          "Inovasi & Kreativitas — Mengembangkan kegiatan yang mendukung kreativitas mahasiswa dalam menciptakan karya inovatif di bidang elektromedis.",
+          "Mengoptimalkan Digitalisasi Organisasi — Memanfaatkan teknologi digital untuk transparansi, publikasi, serta efisiensi kegiatan HMPS, sehingga lebih modern, efektif, dan dekat dengan mahasiswa."
         ]
       }
     };
