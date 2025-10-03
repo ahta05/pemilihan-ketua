@@ -147,15 +147,18 @@ async function tampilkanKandidatTerpilih() {
         foto: "kandidat2.png",
         visi: "Mewujudkan HMPS Teknologi Rekayasa Elektromedis yang unggul dan inovatif.",
         misi: [
-          <li><strong>Organisasi & Kepemimpinan</strong><br>
-          <p>Membentuk budaya organisasi yang solid, profesional, dan berintegritas tinggi.</p>
-          </li>
-          <li><strong>Inovasi & Kreativitas</strong><br>
-          <p>Mengembangkan kegiatan yang mendukung kreativitas mahasiswa dalam menciptakan karya inovatif di bidang elektromedis.</p>
-          </li>
-          <li><strong>Mengoptimalkan Digitalisasi Organisasi</strong><br>
-          <p>Memanfaatkan teknologi digital untuk transparansi, publikasi, serta efisiensi kegiatan HMPS, sehingga lebih modern, efektif, dan dekat dengan mahasiswa.</p>
-          </li>
+          {
+            judul: "Organisasi & Kepemimpinan",
+            deskripsi: "Membentuk budaya organisasi yang solid, profesional, dan berintegritas tinggi."
+          },
+          {
+            judul: "Inovasi & Kreativitas",
+            deskripsi: "Mengembangkan kegiatan yang mendukung kreativitas mahasiswa dalam menciptakan karya inovatif di bidang elektromedis."
+          },
+          {
+            judul: "Digitalisasi Organisasi",
+            deskripsi: "Memanfaatkan teknologi digital untuk transparansi, publikasi, serta efisiensi kerja organisasi."
+          }
         ]
       }
     };
@@ -175,9 +178,26 @@ async function tampilkanKandidatTerpilih() {
 
     const ul = document.getElementById("misi-kandidat");
     ul.innerHTML = "";
-    terpilih.misi.forEach(m => {
+
+    terpilih.misi.forEach((m, i) => {
       const li = document.createElement("li");
-      li.textContent = m;
+
+      if (typeof m === "string") {
+        li.textContent = `${i + 1}. ${m}`;
+      } else {
+        const strong = document.createElement("strong");
+        strong.textContent = `${i + 1}. ${m.judul}`;
+
+        const br = document.createElement("br");
+
+        const p = document.createElement("p");
+        p.textContent = m.deskripsi;
+
+        li.appendChild(strong);
+        li.appendChild(br);
+        li.appendChild(p);
+      }
+
       ul.appendChild(li);
     });
 
