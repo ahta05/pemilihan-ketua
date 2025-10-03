@@ -133,17 +133,17 @@ async function tampilkanKandidatTerpilih() {
 
     const dataKandidat = {
       1: {
-        nama: "Amir Baiquni Arza",
+        nama: "Difa Dwinur Pastika",
         foto: "kandidat1.png",
-        visi: "Menjadi pemimpin yang inovatif dan inklusif",
+        visi: "Mewujudkan HMPS TRE yang solid, aktif, dan bermanfaat bagi anggota maupun lingkungan sekitar.",
         misi: [
-          "Meningkatkan kualitas kegiatan mahasiswa",
-          "Mendorong partisipasi aktif seluruh anggota",
-          "Mengembangkan program kerja yang berdampak nyata"
+          "Mengkoordinasi semua angkatan terutama 24 dan 25 untuk ikut serta dalam kegiatan HMPS TRE atau Prodi.",
+          "Membawa nama baik HMPS TRE agar lebih dikenal aktif dan berdampak positif di dalam maupun di luar kampus.",
+          "Mengoptimalkan program kerja agar lebih terarah dan bermanfaat."
         ]
       },
       2: {
-        nama: "Purwo Setiawan",
+        nama: "Purwo Setyawan",
         foto: "kandidat2.png",
         visi: "Mewujudkan organisasi yang transparan dan berkelanjutan",
         misi: [
