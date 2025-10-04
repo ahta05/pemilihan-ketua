@@ -133,7 +133,7 @@ async function tampilkanKandidatTerpilih() {
 
     const dataKandidat = {
       1: {
-        nama: "Difa Dwinur Pastika",
+        nama: "Difa Dwi Nur Pastika",
         foto: "kandidat1.png",
         visi: "Mewujudkan HMPS TRE yang solid, aktif, dan bermanfaat bagi anggota maupun lingkungan sekitar.",
         misi: [
